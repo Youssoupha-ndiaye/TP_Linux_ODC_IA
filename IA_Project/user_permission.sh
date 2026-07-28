@@ -55,4 +55,27 @@ sudo chown bob documentation
 sudo chown root shared
  
 
+echo "7) Attribution des groupes"
 
+sudo chgrp data datasets
+sudo chgrp data models
+sudo chgrp api api 
+sudo chgrp mlops logs
+sudo chgrp mlops backup
+sudo chgrp data documentation
+sudo chgrp data shared
+
+
+echo "8) Configuration des droits"
+
+sudo chmod 770 datasets  
+sudo chmod 750 models
+sudo chmod 770 api 
+sudo chmod 740 logs
+sudo chmod 700 backup 
+sudo chmod 744 documentation
+sudo chmod 775 shared
+
+echo "verification des droits"
+
+ls -ld datasets models api logs backup documentation shared
