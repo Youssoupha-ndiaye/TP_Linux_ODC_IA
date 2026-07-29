@@ -8,7 +8,7 @@
 read -p "Nom du projet : " Nom_Projet
 
 # création de l'arborescence 
-mkdir -p "$Nom_Projet"/{datasets/brut,datasets/clean,config,logs,scripts,models,api,backup,documentation,shared}
+mkdir -p "$Nom_Projet"/{datasets/brut,datasets/clean,config,logs,scripts,models,backup,api,documentation,shared}
 Arborescence="OK"
 
 # Créer un fichier de configuration
@@ -22,9 +22,43 @@ AUTHOR=Equipe IA
 EOF
 fichier_de_config="OK
 
+# création at ajout des info dans le readme
+cat > "$Nom_Projet/datasets/brut/readme.txt" << 'EOF'
+Projet : IA de prédiction des achats
+
+Ce dossier contient les données brutes destinées
+à l'entraînement d'un modèle de Machine Learning.
+
+Fichiers disponibles :
+
+- train.csv
+- test.csv
+- clients.csv
+
+Ne jamais modifier directement les fichiers originaux.
+
+Les versions nettoyées devront être placées
+dans datasets/clean.
+EOF
+
+# creation du fichier train.csv et ajout des éléments 
+cat > "$Nom_Projet/datasets/brut/train.csv" << EOF
+id,age,revenu,ville,achat
+1,25,350000,Dakar,Oui
+2,42,720000,Thies,Non
+3,31,500000,Saint-Louis,Oui
+4,28,410000,Dakar,Oui
+5,54,900000,Kaolack,Non
+6,36,620000,Ziguinchor,Oui
+7,29,470000,Thies,Oui
+8,47,850000,Dakar,Non
+9,39,650000,Louga,Oui
+10,26,390000,Matam,Non
+EOF
+
 # Installer les outils nécessaires
-sudo apt update -qq
-sudo apt install -y git curl wget htop tree python3 python3-pip unzip > /dev/null 2>&1
+# sudo apt update -qq
+# sudo apt install -y git curl wget htop tree python3 python3-pip unzip > /dev/null 2>&1
 Logiciel="OK"
 
 # Télécharger le dataset
@@ -37,10 +71,12 @@ else
 fi
 
 # Compresser le projet
-tar -czf "$Nom_Projet/backup/${nom_project}.tar.gz" "$Nom_Projet"
+
+tar -czf "$Nom_Projet/backup/${Nom_Projet}.tar.gz" "$Nom_Projet"
 Archive="$Nom_Projet/backup/${Nom_Projet}.tar.gz"
 
 # Afficher un résumé
+
 echo "=========================="
 echo "Projet créé"
 echo "Nom : $Nom_Projet"
